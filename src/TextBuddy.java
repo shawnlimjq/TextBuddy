@@ -22,6 +22,8 @@ import java.util.Scanner;
  *         3) delete <index> 
  *         4) clear 
  *         5) exit
+ *         6) search
+ *         7) sort
  *
  *         This program will terminate and save all texts to the text file when
  *         the exit command is given.
@@ -83,7 +85,7 @@ public class TextBuddy {
 
 	// Command Types
 	enum CommandType {
-		ADD, DISPLAY, DELETE, CLEAR, EXIT, INVALID
+		ADD, DISPLAY, DELETE, CLEAR, EXIT, INVALID, SORT, SEARCH
 	};
 
 	public static void main(String[] args) {
@@ -200,6 +202,9 @@ public class TextBuddy {
 	 * delete: Checks if valid command before deleting 
 	 * clear: Clears the text file
 	 * exit: Commit to file
+	 * sort: Sorts all task alphabetically
+	 * search: Search the text file for tasks containing input
+	 *         and returns all that contains it
 	 * default: invalid input message
 	 */
 	private static void executeCommands() {
@@ -232,6 +237,12 @@ public class TextBuddy {
 					System.exit(0);
 					break;
 					
+			    case SORT:
+			    	break;
+			    	
+			    case SEARCH:
+			    	break;
+					
 			    default:
 					printMessage(MESSAGE_INVALID_COMMAND);
 					break;
@@ -255,7 +266,12 @@ public class TextBuddy {
 			return CommandType.CLEAR;
 		} else if (commandTypeString.equalsIgnoreCase("exit")) {
 			return CommandType.EXIT;
-		} else {
+		} else if (commandTypeString.equalsIgnoreCase("sort")) {
+			return CommandType.SORT;
+		} else if (commandTypeString.equalsIgnoreCase("search")) {
+			return CommandType.SEARCH;
+		} else
+		{
 			return CommandType.INVALID;
 		}
 	}
