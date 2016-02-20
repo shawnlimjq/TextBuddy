@@ -50,11 +50,17 @@ public class TextBuddy {
 	// parameter size check for empty add input
 	private static int PARAM_SIZE_FOR_EMPTY_ADD_INPUT = 0;
 	
+	// parameter size check for empty add input
+	private static int PARAM_SIZE_FOR_EMPTY_SEARCH_INPUT = 0;
+	
 	// Parameter size for correct .txt file
 	private static int PARAM_SIZE_FOR_VALID_FILE = 4;
 	
 	// Parameter size for correct delete function
 	private static int PARAM_SIZE_FOR_DELETE = 2;
+	
+	// Parameter size for correct search function
+	private static int PARAM_SIZE_FOR_SEARCH = 2;
 	
 	// Parameter size for correct add function
 	private static int PARAM_SIZE_FOR_ADD = 2;
@@ -69,6 +75,7 @@ public class TextBuddy {
 	private static String MESSAGE_DELETED = "deleted from %1$s: \"%2$s\"";
 	private static String MESSAGE_FILE_CLEARED = "all content deleted from %1$s";
 	private static String MESSAGE_FILE_EMPTY = "%1$s is empty";
+	private static String MESSAGE_NOT_FOUND = "%1$s not found";
 
 	// Validation/error Messages
 	private static String MESSAGE_NO_INPUT = "No Input!";
@@ -79,7 +86,9 @@ public class TextBuddy {
 	                                                + "Please use: add, display, delete, clear, exit.";
 	private static String MESSAGE_INVALID_ADD = "Invalid Command! Please use the command: add <String>";
 	private static String MESSAGE_INVALID_DELETE = "Invalid Command! "
-	                                               + "Please use the command: add <Integer>";
+	                                               + "Please use the command: delete <Integer>";
+	private static String MESSAGE_INVALID_SEARCH = "Invalid Command! "
+                                                   + "Please use the command: search <Integer>";
 	private static String MESSAGE_INVALID_INPUT_DELETE = "Invalid Input! Please use an integer that "
 	                                                     + "is lower or equal to %1$s";
 
@@ -241,6 +250,7 @@ public class TextBuddy {
 			    	break;
 			    	
 			    case SEARCH:
+			    	executeSearchCommand(inputs);
 			    	break;
 					
 			    default:
@@ -274,6 +284,62 @@ public class TextBuddy {
 		{
 			return CommandType.INVALID;
 		}
+	}
+	
+	/*
+	 * Check if valid search command and returns 
+	 */
+	private static void executeSearchCommand(String[] inputs) {
+		if(checkSearchParameters(inputs)) {
+		checkValidSearchInput(inputs);}
+	}
+	
+	/*
+	 * Check if there is command and search input
+	 */
+	private static boolean checkSearchParameters(String[] inputs) {
+		if (inputs.length != PARAM_SIZE_FOR_SEARCH) {
+			printMessage(MESSAGE_INVALID_SEARCH);
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/*
+	 * Checks if search command has a space between the search
+	 * and task
+	 */
+	private static void checkValidSearchInput(String[] inputs) {
+		if (inputs[1].length() != PARAM_SIZE_FOR_EMPTY_SEARCH_INPUT) {
+			search(inputs[1]);
+		} else {
+			printMessage(MESSAGE_INVALID_SEARCH);
+		}
+	}
+	
+	/*
+	 * Checks and returns all lines containing the input
+	 * else return text not found
+	 */
+	private static void search(String text) {
+		boolean found = false;
+		for(String currentText:textList) {
+			if(currentText.contains(text)) {
+				System.out.println("\n" + currentText);
+				found = true;
+			}
+		}
+		if(isNotFound(found)){
+			printMessage(String.format(MESSAGE_NOT_FOUND, text));
+		}
+	}
+
+	/*
+	 * Checks if text is found
+	 */
+	private static boolean isNotFound(boolean found) {
+		return found==false;
 	}
 
 	/*
