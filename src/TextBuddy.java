@@ -220,7 +220,7 @@ public class TextBuddy {
 					break;
 					
 			    case DELETE:
-					checkValidDeleteCommand(inputs);
+					executeDeleteCommand(inputs);
 					break;
 					
 			    case CLEAR:
@@ -261,10 +261,18 @@ public class TextBuddy {
 	}
 
 	/*
-	 * Check if the input is valid else return error messages Checks for empty
-	 * file, wrong command usage and invalid inputs Prompts again after this
+	 * Check if the input is valid else return error messages 
+	 * Checks for empty file, wrong command usage and invalid inputs 
+	 * Prompts again after this
 	 */
-	private static void checkValidDeleteCommand(String[] inputs) {
+	private static void executeDeleteCommand(String[] inputs) {
+		checkValidDelete(inputs);
+	}
+
+	/*
+	 * Calls for methods to check the inputs of delete method
+	 */
+	private static void checkValidDelete(String[] inputs) {
 		if (isInteger(inputs[1])) {
 			checkDeleteParameters(inputs);
 			checkEmptyFile();
@@ -342,7 +350,8 @@ public class TextBuddy {
 	}
 
 	/*
-	 * Checks if the add commands input is not a space
+	 * Checks if add command has a space between the add
+	 * and task
 	 */
 	private static void checkValidAddInput(String[] inputs) {
 		if (inputs[1].length() != PARAM_SIZE_FOR_EMPTY_ADD_INPUT) {
