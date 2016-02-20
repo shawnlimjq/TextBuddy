@@ -37,11 +37,11 @@ public class jUnitTest {
 
 	@Test
 	public void checkCommandType() {
-		assertEquals(TextBuddy.CommandType.ADD, TextBuddy.getCommandType("add"));
-		assertEquals(TextBuddy.CommandType.ADD, TextBuddy.getCommandType("ADd"));
-		assertEquals(TextBuddy.CommandType.DELETE, TextBuddy.getCommandType("delete"));
-		assertEquals(TextBuddy.CommandType.DELETE, TextBuddy.getCommandType("deletE"));
-		assertEquals(TextBuddy.CommandType.CLEAR, TextBuddy.getCommandType("clear"));
+		assertEquals(TextBuddy.COMMAND_TYPE.ADD, TextBuddy.getCommandType("add"));
+		assertEquals(TextBuddy.COMMAND_TYPE.ADD, TextBuddy.getCommandType("ADd"));
+		assertEquals(TextBuddy.COMMAND_TYPE.DELETE, TextBuddy.getCommandType("delete"));
+		assertEquals(TextBuddy.COMMAND_TYPE.DELETE, TextBuddy.getCommandType("deletE"));
+		assertEquals(TextBuddy.COMMAND_TYPE.CLEAR, TextBuddy.getCommandType("clear"));
 	}
 
 }

@@ -74,15 +74,15 @@ public class TextBuddy {
 	private static String MESSAGE_INVALID_EXTENSION = "Invalid File Extension. ";
 	private static String MESSAGE_INVALID_INPUT = "Invalid Input!";
 	private static String MESSAGE_INVALID_COMMAND = "Invalid Command! "
-	                                                + "Please use: add, display, delete, clear, exit.";
+			+ "Please use: add, display, delete, clear, exit.";
 	private static String MESSAGE_INVALID_ADD = "Invalid Command! Please use the command: add <String>";
 	private static String MESSAGE_INVALID_DELETE = "Invalid Command! "
-	                                               + "Please use the command: add <Integer>";
+			+ "Please use the command: add <Integer>";
 	private static String MESSAGE_INVALID_INPUT_DELETE = "Invalid Input! Please use an integer that "
-	                                                     + "is lower or equal to %1$s";
+			+ "is lower or equal to %1$s";
 
 	// Command Types
-	enum CommandType {
+	enum COMMAND_TYPE {
 		ADD, DISPLAY, DELETE, CLEAR, EXIT, INVALID
 	};
 
@@ -209,30 +209,30 @@ public class TextBuddy {
 			userInput = sc.nextLine();
 			//splits the commands into 2 parts
 			String inputs[] = userInput.split(" ", PARAM_SIZE_FOR_COMMANDS);
-			CommandType commandType = getCommandType(inputs[0]);
+			COMMAND_TYPE commandType = getCommandType(inputs[0]);
 			switch (commandType) {
-			    case DISPLAY:
+				case DISPLAY:
 					displayFileData();
 					break;
 					
-			    case ADD:
+				case ADD:
 					checkValidAddCommand(inputs);
 					break;
 					
-			    case DELETE:
+				case DELETE:
 					checkValidDeleteCommand(inputs);
 					break;
 					
-			    case CLEAR:
+				case CLEAR:
 					clearFile();
 					break;
 					
-			    case EXIT:
+				case EXIT:
 					writeToFile();
 					System.exit(0);
 					break;
 					
-			    default:
+				default:
 					printMessage(MESSAGE_INVALID_COMMAND);
 					break;
 			}
@@ -242,21 +242,21 @@ public class TextBuddy {
 	/*
 	 * Gets the command according to the input
 	 */
-	public static CommandType getCommandType(String commandTypeString) {
+	public static COMMAND_TYPE getCommandType(String commandTypeString) {
 		if (commandTypeString == null)
 			printMessage(MESSAGE_INVALID_COMMAND);
 		if (commandTypeString.equalsIgnoreCase("add")) {
-			return CommandType.ADD;
+			return COMMAND_TYPE.ADD;
 		} else if (commandTypeString.equalsIgnoreCase("display")) {
-			return CommandType.DISPLAY;
+			return COMMAND_TYPE.DISPLAY;
 		} else if (commandTypeString.equalsIgnoreCase("delete")) {
-			return CommandType.DELETE;
+			return COMMAND_TYPE.DELETE;
 		} else if (commandTypeString.equalsIgnoreCase("clear")) {
-			return CommandType.CLEAR;
+			return COMMAND_TYPE.CLEAR;
 		} else if (commandTypeString.equalsIgnoreCase("exit")) {
-			return CommandType.EXIT;
+			return COMMAND_TYPE.EXIT;
 		} else {
-			return CommandType.INVALID;
+			return COMMAND_TYPE.INVALID;
 		}
 	}
 
