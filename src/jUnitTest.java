@@ -62,20 +62,22 @@ public class jUnitTest {
 		assertEquals(TextBuddy.CommandType.CLEAR, TextBuddy.getCommandType("clear"));
 	}
 
-	@Before @Test
+	@Before
+	@Test
 	public void initialiseFileTest() {
+		resetOutput();
 		setupOutput();
 		TextBuddy.initialiseTest("mytextfile.txt");
 		assertEquals("Welcome to TextBuddy. mytextfile.txt is ready for use", output.toString().trim());
 		resetOutput();
 	}
-	
+
 	@Test
 	public void invalidCommandTest() {
 		setupOutput();
 		TextBuddy.testCommands("a");
-		assertEquals("command: \nInvalid Command! "
-	                 + "Please use: add, display, delete, clear, exit.", output.toString().trim());
+		assertEquals("command: \nInvalid Command! " + "Please use: add, display, delete, clear, exit.",
+				output.toString().trim());
 		resetOutput();
 	}
 
@@ -93,6 +95,66 @@ public class jUnitTest {
 		setupOutput();
 		TextBuddy.testCommands("add ");
 		assertEquals("command: \nInvalid Command! Please use the command: add <String>", output.toString().trim());
+		resetOutput();
+	}
+
+	@Test
+	public void noItemsToDisplayTest() {
+		setupOutput();
+		TextBuddy.testCommands("display");
+		assertEquals("command: \nmytextfile.txt is empty", output.toString().trim());
+		resetOutput();
+	}
+
+	@Test
+	public void displayTest() {
+		setupOutput();
+		TextBuddy.testCommands("add a");
+		resetOutput();
+		TextBuddy.testCommands("display");
+		assertEquals("command: \n1. a", output.toString().trim());
+		resetOutput();
+	}
+
+	@Test
+	public void invalidDeleteInputTest() {
+		setupOutput();
+		TextBuddy.testCommands("add a");
+		TextBuddy.testCommands("add b");
+		TextBuddy.testCommands("add c");
+		resetOutput();
+		TextBuddy.testCommands("delete 4");
+		assertEquals("command: \nInvalid Input! Please use an integer that is lower or equal to 3",
+				output.toString().trim());
+		resetOutput();
+	}
+
+	@Test
+	public void noFileDeleteTest() {
+		setupOutput();
+		TextBuddy.testCommands("delete 1");
+		assertEquals("command: \nmytextfile.txt is empty", output.toString().trim());
+		resetOutput();
+	}
+
+	@Test
+	public void invalidDeleteCommandTest() {
+		setupOutput();
+		TextBuddy.testCommands("delete");
+		assertEquals("command: \nInvalid Command! " + "Please use the command: delete <Integer>",
+				output.toString().trim());
+		resetOutput();
+	}
+
+	@Test
+	public void deleteTest() {
+		setupOutput();
+		TextBuddy.testCommands("add a");
+		TextBuddy.testCommands("add b");
+		TextBuddy.testCommands("add c");
+		resetOutput();
+		TextBuddy.testCommands("delete 2");
+		assertEquals("command: \ndeleted from mytextfile.txt: \"b\"", output.toString().trim());
 		resetOutput();
 	}
 

@@ -371,11 +371,12 @@ public class TextBuddy {
 	 * Calls for methods to check the inputs of delete method
 	 */
 	private static void checkValidDelete(String[] inputs) {
-		if (isInteger(inputs[1])) {
-			checkDeleteParameters(inputs);
-			checkEmptyFile();
-			checkWithinRange(inputs);
-			checkInputValid(inputs);
+		if (checkDeleteParameters(inputs)) {
+			if(isInteger(inputs[1])) {
+				checkEmptyFile();
+				checkWithinRange(inputs);
+				checkInputValid(inputs);
+			}
 		} else {
 			printMessage(MESSAGE_INVALID_DELETE);
 		}
@@ -411,9 +412,11 @@ public class TextBuddy {
 	/*
 	 * Check for correct input parameters
 	 */
-	private static void checkDeleteParameters(String[] inputs) {
+	private static boolean checkDeleteParameters(String[] inputs) {
 		if (inputs.length != PARAM_SIZE_FOR_DELETE) {
-			printMessage(MESSAGE_INVALID_DELETE);
+			return false;
+		} else {
+			return true;
 		}
 	}
 
