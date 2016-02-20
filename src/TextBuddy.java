@@ -512,5 +512,62 @@ public class TextBuddy {
 		printMessage(MESSAGE_GUIDE);
 		System.exit(0);
 	}
+	
+	/*
+	 * Initialise program for testing
+	 *
+	 */
+	public static void initialiseTest(String args) {
+		fileName = args;
+		textList = new ArrayList<String>();
+		printMessage(String.format(MESSAGE_OPENING, fileName));
+		checkFile();
+	}
+	
+	//Test Commands
+	public static void testCommands(String userInput) {
+		System.out.print(MESSAGE_COMMAND_PROMPT);
+		//splits the commands into 2 parts
+		String inputs[] = userInput.split(" ", PARAM_SIZE_FOR_COMMANDS);
+		CommandType commandType = getCommandType(inputs[0]);
+		switch (commandType) {
+		    case DISPLAY:
+				displayFileData();
+				break;
+					
+		    case ADD:
+				executeAddCommand(inputs);
+				break;
+					
+		    case DELETE:
+				executeDeleteCommand(inputs);
+				break;
+					
+		    case CLEAR:
+				clearFile();
+				break;
+					
+		    case EXIT:
+				writeToFile();
+				System.exit(0);
+				break;
+					
+		    case SORT:
+		    	sortCommand();
+		    	break;
+			    	
+		    case SEARCH:
+		    	executeSearchCommand(inputs);
+		    	break;
+					
+		    default:
+				printMessage(MESSAGE_INVALID_COMMAND);
+				break;
+		}
+	}
+	
+	public static ArrayList<String> getTextList() {
+		return textList;
+	}
 
 }
