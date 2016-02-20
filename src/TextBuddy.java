@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -76,6 +77,7 @@ public class TextBuddy {
 	private static String MESSAGE_FILE_CLEARED = "all content deleted from %1$s";
 	private static String MESSAGE_FILE_EMPTY = "%1$s is empty";
 	private static String MESSAGE_NOT_FOUND = "%1$s not found";
+	private static String MESSAGE_SORTED = "%1$s sorted in ascending order";
 
 	// Validation/error Messages
 	private static String MESSAGE_NO_INPUT = "No Input!";
@@ -247,6 +249,7 @@ public class TextBuddy {
 					break;
 					
 			    case SORT:
+			    	sortCommand();
 			    	break;
 			    	
 			    case SEARCH:
@@ -287,11 +290,24 @@ public class TextBuddy {
 	}
 	
 	/*
+	 * Check if valid then sorts the texts in ascending order
+	 */
+	private static void sortCommand() {
+		if(!textList.isEmpty()) {
+			Collections.sort(textList);
+			printMessage(String.format(MESSAGE_SORTED, fileName));
+		} else {
+			printMessage(String.format(MESSAGE_FILE_EMPTY, fileName));
+		}
+	}
+	
+	/*
 	 * Check if valid search command and returns 
 	 */
 	private static void executeSearchCommand(String[] inputs) {
 		if(checkSearchParameters(inputs)) {
-		checkValidSearchInput(inputs);}
+			checkValidSearchInput(inputs);
+		}
 	}
 	
 	/*
