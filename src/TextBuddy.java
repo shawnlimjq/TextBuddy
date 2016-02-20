@@ -216,7 +216,7 @@ public class TextBuddy {
 					break;
 					
 			    case ADD:
-					checkValidAddCommand(inputs);
+					executeAddCommand(inputs);
 					break;
 					
 			    case DELETE:
@@ -324,17 +324,29 @@ public class TextBuddy {
 	}
 
 	/*
-	 * Checks if the add command is properly used else return error message and
-	 * prompt for the command again
+	 * Calls the validate command then adds if it is valid
 	 */
-	private static void checkValidAddCommand(String[] inputs) {
+	private static void executeAddCommand(String[] inputs) {
+		checkAddInputExists(inputs);
+	}
 
+	/*
+	 * Checks if the add commands input is empty
+	 */
+	private static void checkAddInputExists(String[] inputs) {
 		if (inputs.length == PARAM_SIZE_FOR_ADD) {
-			if (inputs[1].length() != PARAM_SIZE_FOR_EMPTY_ADD_INPUT) {
-				addToFile(inputs[1]);
-			} else {
-				printMessage(MESSAGE_INVALID_ADD);
-			}
+			checkValidAddInput(inputs);
+		} else {
+			printMessage(MESSAGE_INVALID_ADD);
+		}
+	}
+
+	/*
+	 * Checks if the add commands input is not a space
+	 */
+	private static void checkValidAddInput(String[] inputs) {
+		if (inputs[1].length() != PARAM_SIZE_FOR_EMPTY_ADD_INPUT) {
+			addToFile(inputs[1]);
 		} else {
 			printMessage(MESSAGE_INVALID_ADD);
 		}
