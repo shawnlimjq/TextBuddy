@@ -264,7 +264,7 @@ public class jUnitTest {
 		TextBuddy.testCommands("add banana");
 		resetOutput();
 		TextBuddy.testCommands("search ple pie");
-		// Check if the data is correct
+		// Check if the message is correct
 		assertEquals("command: \nPlease search one word only", output.toString().trim());
 		resetOutput();
 	}
