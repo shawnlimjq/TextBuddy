@@ -138,10 +138,33 @@ public class jUnitTest {
 	}
 
 	@Test
-	public void invalidDeleteCommandTest() {
+	public void invalidDeleteTest() {
 		setupOutput();
+		TextBuddy.testCommands("add a");
+		resetOutput();
+		TextBuddy.testCommands("delete v");
+		assertEquals("command: \nInvalid Input! Please use an integer that is lower or equal to 1",
+				output.toString().trim());
+		resetOutput();
+	}
+
+	@Test
+	public void invalidParameterDeleteTest() {
+		setupOutput();
+		TextBuddy.testCommands("add a");
+		resetOutput();
 		TextBuddy.testCommands("delete");
-		assertEquals("command: \nInvalid Command! " + "Please use the command: delete <Integer>",
+		assertEquals("command: \nInvalid Command! Please use the command: delete <Integer>", output.toString().trim());
+		resetOutput();
+	}
+
+	@Test
+	public void noDeleteInputTest() {
+		setupOutput();
+		TextBuddy.testCommands("add a");
+		resetOutput();
+		TextBuddy.testCommands("delete ");
+		assertEquals("command: \nInvalid Input! Please use an integer that is lower or equal to 1",
 				output.toString().trim());
 		resetOutput();
 	}
@@ -188,7 +211,7 @@ public class jUnitTest {
 		assertEquals("a b c", output.toString().trim());
 		resetOutput();
 	}
-	
+
 	@Test
 	public void sortEmptyTest() {
 		setupOutput();

@@ -433,6 +433,7 @@ public class TextBuddy {
 			Integer.parseInt(input);
 			return true;
 		} catch (Exception e) {
+			printMessage(String.format(MESSAGE_INVALID_INPUT_DELETE, textList.size()));
 			return false;
 		}
 	}
