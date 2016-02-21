@@ -76,7 +76,7 @@ public class jUnitTest {
 		setupOutput();
 		TextBuddy.testCommands("a");
 		assertEquals("command: \nInvalid Command! " + "Please use: add, display, delete, clear, exit.",
-				output.toString().trim());
+				      output.toString().trim());
 		resetOutput();
 	}
 
@@ -124,7 +124,7 @@ public class jUnitTest {
 		resetOutput();
 		TextBuddy.testCommands("delete 4");
 		assertEquals("command: \nInvalid Input! Please use an integer that is lower or equal to 3",
-				output.toString().trim());
+				      output.toString().trim());
 		resetOutput();
 	}
 
@@ -143,7 +143,7 @@ public class jUnitTest {
 		resetOutput();
 		TextBuddy.testCommands("delete v");
 		assertEquals("command: \nInvalid Input! Please use an integer that is lower or equal to 1",
-				output.toString().trim());
+				      output.toString().trim());
 		resetOutput();
 	}
 
@@ -153,7 +153,8 @@ public class jUnitTest {
 		TextBuddy.testCommands("add a");
 		resetOutput();
 		TextBuddy.testCommands("delete");
-		assertEquals("command: \nInvalid Command! Please use the command: delete <Integer>", output.toString().trim());
+		assertEquals("command: \nInvalid Command! Please use the command: delete <Integer>", 
+				      output.toString().trim());
 		resetOutput();
 	}
 
@@ -164,7 +165,7 @@ public class jUnitTest {
 		resetOutput();
 		TextBuddy.testCommands("delete ");
 		assertEquals("command: \nInvalid Input! Please use an integer that is lower or equal to 1",
-				output.toString().trim());
+				      output.toString().trim());
 		resetOutput();
 	}
 
