@@ -172,6 +172,23 @@ public class jUnitTest {
 		resetOutput();
 	}
 
+	@Test
+	public void sortTest() {
+		setupOutput();
+		TextBuddy.testCommands("add b");
+		TextBuddy.testCommands("add c");
+		TextBuddy.testCommands("add a");
+		resetOutput();
+		TextBuddy.testCommands("sort");
+		assertEquals("command: \nmytextfile.txt sorted in ascending order", output.toString().trim());
+		resetOutput();
+		for (int i = 0; i < TextBuddy.getTextList().size(); i++) {
+			System.out.print(TextBuddy.getTextList().get(i) + " ");
+		}
+		assertEquals("a b c", output.toString().trim());
+		resetOutput();
+	}
+
 	@After
 	public void endTests() {
 		File file = new File("mytextfile.txt");
