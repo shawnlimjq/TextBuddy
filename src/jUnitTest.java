@@ -83,7 +83,7 @@ public class jUnitTest {
 		// Test for invalid commands
 		TextBuddy.testCommands("a");
 		assertEquals("command: \nInvalid Command! " + "Please use: add, display, delete, clear, exit.",
-				output.toString().trim());
+				     output.toString().trim());
 		resetOutput();
 	}
 
@@ -137,7 +137,7 @@ public class jUnitTest {
 		TextBuddy.testCommands("delete 4");
 		// Check if the message is correct
 		assertEquals("command: \nInvalid Input! Please use an integer that is lower or equal to 3",
-				output.toString().trim());
+				     output.toString().trim());
 		resetOutput();
 	}
 
@@ -158,7 +158,7 @@ public class jUnitTest {
 		TextBuddy.testCommands("delete v");
 		// Check if the message is correct
 		assertEquals("command: \nInvalid Input! Please use an integer that is lower or equal to 1",
-				output.toString().trim());
+				     output.toString().trim());
 		resetOutput();
 	}
 
@@ -181,7 +181,7 @@ public class jUnitTest {
 		TextBuddy.testCommands("delete ");
 		// Check if the message is correct
 		assertEquals("command: \nInvalid Input! Please use an integer that is lower or equal to 1",
-				output.toString().trim());
+				     output.toString().trim());
 		resetOutput();
 	}
 
@@ -252,6 +252,20 @@ public class jUnitTest {
 		TextBuddy.testCommands("search a");
 		// Check if the data is correct
 		assertEquals("command:  apple  banana", output.toString().trim().replace("\n", " ").replace("\r", ""));
+		resetOutput();
+	}
+
+	// Search for more than one word
+	@Test
+	public void searchWordsTest() {
+		setupOutput();
+		TextBuddy.testCommands("add apple pie");
+		TextBuddy.testCommands("add b");
+		TextBuddy.testCommands("add banana");
+		resetOutput();
+		TextBuddy.testCommands("search ple pie");
+		// Check if the data is correct
+		assertEquals("command: \nPlease search one word only", output.toString().trim());
 		resetOutput();
 	}
 

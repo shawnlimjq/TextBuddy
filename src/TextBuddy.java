@@ -17,21 +17,16 @@ import java.util.Scanner;
  *         This program will create a new text file or read the specified text
  *         file if it exists.
  * 
- *         The user can input the following commands to manipulate the texts: 
- *         1) add <String> 
- *         2) display 
- *         3) delete <index> 
- *         4) clear 
- *         5) exit
- *         6) search
+ *         The user can input the following commands to manipulate the texts: 1)
+ *         add <String> 2) display 3) delete <index> 4) clear 5) exit 6) search
  *         7) sort
  *
  *         This program will terminate and save all texts to the text file when
  *         the exit command is given.
  * 
  *         =====================================================================
- *         Assumptions: 1) Users will exit program by the exit command.
- *                      2) Users will not add/search/delete spaces.
+ *         Assumptions: 1) Users will exit program by the exit command. 2) Users
+ *         will not add/search/delete spaces.
  *         =====================================================================
  *
  */
@@ -42,31 +37,31 @@ public class TextBuddy {
 	private static ArrayList<String> textList;
 	private static Scanner sc = new Scanner(System.in);
 	private static PrintWriter printWriter = null;
-	
+
 	// Parameter size for no arguments check
 	private static int PARAM_SIZE_FOR_NO_AGUMENTS = 0;
-	
+
 	// parameter size check for empty file
 	private static int PARAM_SIZE_FOR_EMPTY_FILE = 0;
-	
+
 	// parameter size check for empty add input
 	private static int PARAM_SIZE_FOR_EMPTY_ADD_INPUT = 0;
-	
+
 	// parameter size check for empty add input
 	private static int PARAM_SIZE_FOR_EMPTY_SEARCH_INPUT = 0;
-	
+
 	// Parameter size for correct .txt file
 	private static int PARAM_SIZE_FOR_VALID_FILE = 4;
-	
+
 	// Parameter size for correct delete function
 	private static int PARAM_SIZE_FOR_DELETE = 2;
-	
+
 	// Parameter size for correct search function
 	private static int PARAM_SIZE_FOR_SEARCH = 2;
-	
+
 	// Parameter size for correct add function
 	private static int PARAM_SIZE_FOR_ADD = 2;
-	
+
 	// Parameter size for correct add, delete function splitting
 	private static int PARAM_SIZE_FOR_COMMANDS = 2;
 
@@ -86,14 +81,13 @@ public class TextBuddy {
 	private static String MESSAGE_INVALID_EXTENSION = "Invalid File Extension. ";
 	private static String MESSAGE_INVALID_INPUT = "Invalid Input!";
 	private static String MESSAGE_INVALID_COMMAND = "Invalid Command! "
-	                                                + "Please use: add, display, delete, clear, exit.";
+			+ "Please use: add, display, delete, clear, exit.";
 	private static String MESSAGE_INVALID_ADD = "Invalid Command! Please use the command: add <String>";
-	private static String MESSAGE_INVALID_DELETE = "Invalid Command! "
-	                                               + "Please use the command: delete <Integer>";
-	private static String MESSAGE_INVALID_SEARCH = "Invalid Command! "
-                                                   + "Please use the command: search <Integer>";
-	private static String MESSAGE_INVALID_INPUT_DELETE = "Invalid Input! Please use an integer that "
-	                                                     + "is lower or equal to %1$s";
+	private static String MESSAGE_INVALID_DELETE = "Invalid Command! " + "Please use the command: delete <Integer>";
+	private static String MESSAGE_INVALID_SEARCH = "Invalid Command! " + "Please use the command: search <Integer>";
+	private static String MESSAGE_INVALID_DELETE_INPUT = "Invalid Input! Please use an integer that "
+			+ "is lower or equal to %1$s";
+	private static String MESSAGE_INVALID_SEARCH_INPUT = "Please search one word only";
 
 	// Command Types
 	enum CommandType {
@@ -147,8 +141,8 @@ public class TextBuddy {
 	 * Checks if the user has input a .txt file
 	 */
 	public static boolean invalidFileExtension(String fileName) {
-		return !(fileName.substring(((fileName.length()) - PARAM_SIZE_FOR_VALID_FILE), 
-				fileName.length()).equalsIgnoreCase(".txt"));
+		return !(fileName.substring(((fileName.length()) - PARAM_SIZE_FOR_VALID_FILE), fileName.length())
+				.equalsIgnoreCase(".txt"));
 	}
 
 	/*
@@ -196,7 +190,7 @@ public class TextBuddy {
 		try {
 			printWriter = new PrintWriter(new FileOutputStream(fileName, false));
 			for (int i = 0; i < textList.size(); i++) {
-				printWriter.write(textList.get(i)+"\n");
+				printWriter.write(textList.get(i) + "\n");
 			}
 		} catch (Exception e) {
 		} finally {
@@ -208,58 +202,54 @@ public class TextBuddy {
 	}
 
 	/*
-	 * Prompts the user for commands and acts accordingly 
-	 * add: Checks if valid command before adding 
-	 * display: Displays all the text 
-	 * delete: Checks if valid command before deleting 
-	 * clear: Clears the text file
-	 * exit: Commit to file
-	 * sort: Sorts all task alphabetically
-	 * search: Search the text file for tasks containing input
-	 *         and returns all that contains it
-	 * default: invalid input message
+	 * Prompts the user for commands and acts accordingly add: Checks if valid
+	 * command before adding display: Displays all the text delete: Checks if
+	 * valid command before deleting clear: Clears the text file exit: Commit to
+	 * file sort: Sorts all task alphabetically search: Search the text file for
+	 * tasks containing input and returns all that contains it default: invalid
+	 * input message
 	 */
 	private static void executeCommands() {
 		String userInput = "";
 		while (true) {
 			System.out.print(MESSAGE_COMMAND_PROMPT);
 			userInput = sc.nextLine();
-			//splits the commands into 2 parts
+			// splits the commands into 2 parts
 			String inputs[] = userInput.split(" ", PARAM_SIZE_FOR_COMMANDS);
 			CommandType commandType = getCommandType(inputs[0]);
 			switch (commandType) {
-			    case DISPLAY:
-					displayFileData();
-					break;
-					
-			    case ADD:
-					executeAddCommand(inputs);
-					break;
-					
-			    case DELETE:
-					executeDeleteCommand(inputs);
-					break;
-					
-			    case CLEAR:
-					clearFile();
-					break;
-					
-			    case EXIT:
-					writeToFile();
-					System.exit(0);
-					break;
-					
-			    case SORT:
-			    	sortCommand();
-			    	break;
-			    	
-			    case SEARCH:
-			    	executeSearchCommand(inputs);
-			    	break;
-					
-			    default:
-					printMessage(MESSAGE_INVALID_COMMAND);
-					break;
+			case DISPLAY:
+				displayFileData();
+				break;
+
+			case ADD:
+				executeAddCommand(inputs);
+				break;
+
+			case DELETE:
+				executeDeleteCommand(inputs);
+				break;
+
+			case CLEAR:
+				clearFile();
+				break;
+
+			case EXIT:
+				writeToFile();
+				System.exit(0);
+				break;
+
+			case SORT:
+				sortCommand();
+				break;
+
+			case SEARCH:
+				executeSearchCommand(inputs);
+				break;
+
+			default:
+				printMessage(MESSAGE_INVALID_COMMAND);
+				break;
 			}
 		}
 	}
@@ -284,33 +274,32 @@ public class TextBuddy {
 			return CommandType.SORT;
 		} else if (commandTypeString.equalsIgnoreCase("search")) {
 			return CommandType.SEARCH;
-		} else
-		{
+		} else {
 			return CommandType.INVALID;
 		}
 	}
-	
+
 	/*
 	 * Check if valid then sorts the texts in ascending order
 	 */
 	private static void sortCommand() {
-		if(!textList.isEmpty()) {
+		if (!textList.isEmpty()) {
 			Collections.sort(textList);
 			printMessage(String.format(MESSAGE_SORTED, fileName));
 		} else {
 			printMessage(String.format(MESSAGE_FILE_EMPTY, fileName));
 		}
 	}
-	
+
 	/*
-	 * Check if valid search command and returns 
+	 * Check if valid search command and returns
 	 */
 	private static void executeSearchCommand(String[] inputs) {
-		if(checkSearchParameters(inputs)) {
+		if (checkSearchParameters(inputs)) {
 			checkValidSearchInput(inputs);
 		}
 	}
-	
+
 	/*
 	 * Check if there is command and search input
 	 */
@@ -322,33 +311,43 @@ public class TextBuddy {
 			return true;
 		}
 	}
-	
+
 	/*
-	 * Checks if search command has a space between the search
-	 * and task
+	 * Checks if search command has a space between the search and task
 	 */
 	private static void checkValidSearchInput(String[] inputs) {
 		if (inputs[1].length() != PARAM_SIZE_FOR_EMPTY_SEARCH_INPUT) {
-			search(inputs[1]);
+			checkSearchWordLimit(inputs);
 		} else {
 			printMessage(MESSAGE_INVALID_SEARCH);
 		}
 	}
-	
+
 	/*
-	 * Checks and returns all lines containing the input
-	 * else return text not found
+	 * Checks if the search input has one word only
+	 */
+	private static void checkSearchWordLimit(String[] inputs) {
+		if (!inputs[1].contains(" ")) {
+			search(inputs[1]);
+		} else {
+			printMessage(MESSAGE_INVALID_SEARCH_INPUT);
+		}
+	}
+
+	/*
+	 * Checks and returns all lines containing the input else return text not
+	 * found
 	 */
 	private static void search(String text) {
 		boolean found = false;
 		if (!textList.isEmpty()) {
-			for(String currentText:textList) {
-				if(currentText.contains(text)) {
+			for (String currentText : textList) {
+				if (currentText.contains(text)) {
 					System.out.println("\n" + currentText);
 					found = true;
 				}
 			}
-			if(isNotFound(found)){
+			if (isNotFound(found)) {
 				printMessage(String.format(MESSAGE_NOT_FOUND, text));
 			}
 		} else {
@@ -360,13 +359,12 @@ public class TextBuddy {
 	 * Checks if text is found
 	 */
 	private static boolean isNotFound(boolean found) {
-		return found==false;
+		return found == false;
 	}
 
 	/*
-	 * Check if the input is valid else return error messages 
-	 * Checks for empty file, wrong command usage and invalid inputs 
-	 * Prompts again after this
+	 * Check if the input is valid else return error messages Checks for empty
+	 * file, wrong command usage and invalid inputs Prompts again after this
 	 */
 	private static void executeDeleteCommand(String[] inputs) {
 		checkValidDelete(inputs);
@@ -377,7 +375,7 @@ public class TextBuddy {
 	 */
 	private static void checkValidDelete(String[] inputs) {
 		if (checkDeleteParameters(inputs)) {
-			if(isInteger(inputs[1])) {
+			if (isInteger(inputs[1])) {
 				checkEmptyFile();
 				checkWithinRange(inputs);
 				checkInputValid(inputs);
@@ -391,7 +389,8 @@ public class TextBuddy {
 	 * Check if the input is valid then do the operation
 	 */
 	private static void checkInputValid(String[] inputs) {
-		if (Integer.parseInt(inputs[1]) <= textList.size() && !(Integer.parseInt(inputs[1]) <= PARAM_SIZE_FOR_EMPTY_FILE)) {
+		if (Integer.parseInt(inputs[1]) <= textList.size()
+				&& !(Integer.parseInt(inputs[1]) <= PARAM_SIZE_FOR_EMPTY_FILE)) {
 			deleteLineOfData(inputs[1]);
 		}
 	}
@@ -401,7 +400,7 @@ public class TextBuddy {
 	 */
 	private static void checkWithinRange(String[] inputs) {
 		if (Integer.parseInt(inputs[1]) > textList.size() && textList.size() != PARAM_SIZE_FOR_EMPTY_FILE) {
-			printMessage(String.format(MESSAGE_INVALID_INPUT_DELETE, textList.size()));
+			printMessage(String.format(MESSAGE_INVALID_DELETE_INPUT, textList.size()));
 		}
 	}
 
@@ -433,7 +432,7 @@ public class TextBuddy {
 			Integer.parseInt(input);
 			return true;
 		} catch (Exception e) {
-			printMessage(String.format(MESSAGE_INVALID_INPUT_DELETE, textList.size()));
+			printMessage(String.format(MESSAGE_INVALID_DELETE_INPUT, textList.size()));
 			return false;
 		}
 	}
@@ -457,8 +456,7 @@ public class TextBuddy {
 	}
 
 	/*
-	 * Checks if add command has a space between the add
-	 * and task
+	 * Checks if add command has a space between the add and task
 	 */
 	private static void checkValidAddInput(String[] inputs) {
 		if (inputs[1].length() != PARAM_SIZE_FOR_EMPTY_ADD_INPUT) {
@@ -521,7 +519,7 @@ public class TextBuddy {
 		printMessage(MESSAGE_GUIDE);
 		System.exit(0);
 	}
-	
+
 	/*
 	 * Initialise program for testing
 	 *
@@ -532,49 +530,49 @@ public class TextBuddy {
 		printMessage(String.format(MESSAGE_OPENING, fileName));
 		checkFile();
 	}
-	
-	//Test Commands
+
+	// Test Commands
 	public static void testCommands(String userInput) {
 		System.out.print(MESSAGE_COMMAND_PROMPT);
-		//splits the commands into 2 parts
+		// splits the commands into 2 parts
 		String inputs[] = userInput.split(" ", PARAM_SIZE_FOR_COMMANDS);
 		CommandType commandType = getCommandType(inputs[0]);
 		switch (commandType) {
-		    case DISPLAY:
-				displayFileData();
-				break;
-					
-		    case ADD:
-				executeAddCommand(inputs);
-				break;
-					
-		    case DELETE:
-				executeDeleteCommand(inputs);
-				break;
-					
-		    case CLEAR:
-				clearFile();
-				break;
-					
-		    case EXIT:
-				writeToFile();
-				System.exit(0);
-				break;
-					
-		    case SORT:
-		    	sortCommand();
-		    	break;
-			    	
-		    case SEARCH:
-		    	executeSearchCommand(inputs);
-		    	break;
-					
-		    default:
-				printMessage(MESSAGE_INVALID_COMMAND);
-				break;
+		case DISPLAY:
+			displayFileData();
+			break;
+
+		case ADD:
+			executeAddCommand(inputs);
+			break;
+
+		case DELETE:
+			executeDeleteCommand(inputs);
+			break;
+
+		case CLEAR:
+			clearFile();
+			break;
+
+		case EXIT:
+			writeToFile();
+			System.exit(0);
+			break;
+
+		case SORT:
+			sortCommand();
+			break;
+
+		case SEARCH:
+			executeSearchCommand(inputs);
+			break;
+
+		default:
+			printMessage(MESSAGE_INVALID_COMMAND);
+			break;
 		}
 	}
-	
+
 	public static ArrayList<String> getTextList() {
 		return textList;
 	}
