@@ -158,6 +158,20 @@ public class jUnitTest {
 		resetOutput();
 	}
 
+	@Test
+	public void clearTest() {
+		setupOutput();
+		TextBuddy.testCommands("add a");
+		TextBuddy.testCommands("add b");
+		resetOutput();
+		TextBuddy.testCommands("clear");
+		assertEquals("command: \nall content deleted from mytextfile.txt", output.toString().trim());
+		resetOutput();
+		TextBuddy.testCommands("display");
+		assertEquals("command: \nmytextfile.txt is empty", output.toString().trim());
+		resetOutput();
+	}
+
 	@After
 	public void endTests() {
 		File file = new File("mytextfile.txt");
