@@ -31,6 +31,7 @@ import java.util.Scanner;
  * 
  *         =====================================================================
  *         Assumptions: 1) Users will exit program by the exit command.
+ *                      2) Users will not add/search/delete spaces.
  *         =====================================================================
  *
  */
@@ -340,14 +341,18 @@ public class TextBuddy {
 	 */
 	private static void search(String text) {
 		boolean found = false;
-		for(String currentText:textList) {
-			if(currentText.contains(text)) {
-				System.out.println("\n" + currentText);
-				found = true;
+		if (!textList.isEmpty()) {
+			for(String currentText:textList) {
+				if(currentText.contains(text)) {
+					System.out.println("\n" + currentText);
+					found = true;
+				}
 			}
-		}
-		if(isNotFound(found)){
-			printMessage(String.format(MESSAGE_NOT_FOUND, text));
+			if(isNotFound(found)){
+				printMessage(String.format(MESSAGE_NOT_FOUND, text));
+			}
+		} else {
+			printMessage(String.format(MESSAGE_FILE_EMPTY, fileName));
 		}
 	}
 

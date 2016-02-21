@@ -188,6 +188,46 @@ public class jUnitTest {
 		assertEquals("a b c", output.toString().trim());
 		resetOutput();
 	}
+	
+	@Test
+	public void sortEmptyTest() {
+		setupOutput();
+		TextBuddy.testCommands("sort");
+		assertEquals("command: \nmytextfile.txt is empty", output.toString().trim());
+		resetOutput();
+	}
+
+	@Test
+	public void searchTest() {
+		setupOutput();
+		TextBuddy.testCommands("add apple");
+		TextBuddy.testCommands("add b");
+		TextBuddy.testCommands("add banana");
+		resetOutput();
+		TextBuddy.testCommands("search a");
+		assertEquals("command:  apple  banana", output.toString().trim().replace("\n", " ").replace("\r", ""));
+		resetOutput();
+	}
+
+	@Test
+	public void searchNoInputTest() {
+		setupOutput();
+		TextBuddy.testCommands("search a");
+		assertEquals("command: \nmytextfile.txt is empty", output.toString().trim());
+		resetOutput();
+	}
+
+	@Test
+	public void searchNotFoundTest() {
+		setupOutput();
+		TextBuddy.testCommands("add apple");
+		TextBuddy.testCommands("add b");
+		TextBuddy.testCommands("add banana");
+		resetOutput();
+		TextBuddy.testCommands("search c");
+		assertEquals("command: \nc not found", output.toString().trim());
+		resetOutput();
+	}
 
 	@After
 	public void endTests() {
